@@ -16,7 +16,7 @@ class _LoginState extends State<Login> {
   String? errorTgl = "";
   TextEditingController _textNama = TextEditingController();
   TextEditingController _textPass = TextEditingController();
-  UserLogin? resultApi;
+  Person? resultApi;
   String? akses;
   String? nama;
   String? token;
@@ -102,15 +102,19 @@ class _LoginState extends State<Login> {
 
               ElevatedButton.icon(
                 onPressed: () {
-                  apiServices
-                      ?.login(_textNama.text, _textPass.text)
-                      .then((value) {
+                  apiServices?.login('SF13773', '1234').then((value) {
                     if (value == null) {
                       errorTgl = "Password keliru";
                       setState(() {});
                     } else {
                       resultApi = value;
+                      print(value.message);
                       setState(() {});
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => UserPage(),
+                          ));
                     }
                   });
                 },

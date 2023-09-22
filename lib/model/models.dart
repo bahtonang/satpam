@@ -1,44 +1,55 @@
 import 'dart:convert';
 
-class UserLogin {
-  String nama;
+Person personFromJson(String str) => Person.fromJson(json.decode(str));
+String personToJson(Person data) => json.encode(data.toJson());
+
+class Person {
+  Person({
+    required this.error,
+    required this.message,
+    required this.user,
+    required this.accessToken,
+  });
+
+  bool error;
+  String message;
+  User user;
+  String accessToken;
+
+  factory Person.fromJson(Map<String, dynamic> json) => Person(
+        error: json["error"],
+        message: json["message"],
+        user: User.fromJson(json["user"]),
+        accessToken: json["access_token"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "error": error,
+        "message": message,
+        "user": user.toJson(),
+        "access_token": accessToken,
+      };
+}
+
+class User {
+  User({
+    required this.pid,
+    required this.pass,
+  });
+
+  String pid;
   String pass;
-  String akses;
-  String token;
 
-  UserLogin(
-      {required this.nama,
-      required this.pass,
-      required this.akses,
-      required this.token});
+  factory User.fromJson(Map<String, dynamic> json) => User(
+        pid: json["pid"],
+        pass: json["nama"],
+      );
 
-  factory UserLogin.fromJson(Map<String, dynamic> json) {
-    return UserLogin(
-        nama: json['NAMA'],
-        pass: json['PASS'],
-        token: json['TOKEN'],
-        akses: json['AKSES']);
-  }
-  Map<String, dynamic> toJson() {
-    return {"nama": nama, "pass": pass, "akses": akses, "token": token};
-  }
-
-  @override
-  String toString() {
-    return 'UserLogin{ nama : $nama, pass : $pass, akses : $akses,token:$token}';
-  }
+  Map<String, dynamic> toJson() => {
+        "pid": pid,
+        "nama": pass,
+      };
 }
-
-List<UserLogin> loginFromJson(String jsonData) {
-  final data = json.decode(jsonData);
-  return List<UserLogin>.from(data.map((item) => UserLogin.fromJson(item)));
-}
-
-String loginToJson(UserLogin data) {
-  final jsonData = data.toJson();
-  return json.encode(jsonData);
-}
-
 /* ------------------------------------------------------- */
 
 class Patroli {

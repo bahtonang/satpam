@@ -4,13 +4,17 @@ import 'dart:convert';
 
 class BahtonangApiServices {
   Client client = Client();
-
-  Future<UserLogin?> login(String? nama, String? pass) async {
-    final respond = await client.post(
-        Uri.parse("http://192.168.19.3/ciasik/public/otentikasi/login"),
-        body: ({"nama": nama, "pass": pass}));
+  final uri = Uri.parse("http://192.168.19.3/ciasik/public/otentikasi/login");
+  Future<Person?> login(String pid, String pass) async {
+    Map<String, String> header = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json'
+    };
+    final respond = await client.post(uri,
+        headers: header, body: json.encode({"pid": pid, "pass": pass}));
     if (respond.statusCode == 200) {
-      final data = UserLogin.fromJson(json.decode(respond.body)[0]);
+      final data = personFromJson(respond.body);
+      print(data);
       return data;
     } else {
       return null;
