@@ -1,3 +1,4 @@
+import 'package:go_router/go_router.dart';
 import 'package:satpam/model/models.dart';
 import 'package:satpam/service/services.dart';
 import 'package:satpam/userpage.dart';
@@ -110,11 +111,12 @@ class _LoginState extends State<Login> {
                       resultApi = value;
                       print(value.message);
                       setState(() {});
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => UserPage(),
-                          ));
+                      context.goNamed('main_page');
+                      // Navigator.pushReplacement(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //       builder: (BuildContext context) => UserPage(),
+                      //     ));
                     }
                   });
                 },

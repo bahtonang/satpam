@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:satpam/coba.dart';
 // import 'package:satpam/patrolidtp.dart';
 // import 'package:satpam/scan.dart';
@@ -66,10 +67,11 @@ class _UserPageState extends State<UserPage> {
                 icon: Icons.access_time_outlined,
                 warna: Colors.green,
                 onpress: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MyWidget()),
-                  );
+                  context.goNamed('about');
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => MyWidget()),
+                  // );
                 },
               ),
               MyMenu(
