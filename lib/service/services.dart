@@ -3,14 +3,11 @@ import 'package:http/http.dart' show Client;
 import 'dart:convert';
 
 class BahtonangApiServices {
-  // String baseUrl = "http://36.93.18.9:81/satpam_api/public/";
-  //final String baseUrl = "http://192.168.35.93/satpam/public/";
-
   Client client = Client();
 
   Future<UserLogin?> login(String? nama, String? pass) async {
     final respond = await client.post(
-        Uri.parse("http://36.93.18.9:81/satpam/public/login"),
+        Uri.parse("http://192.168.19.3/ciasik/public/otentikasi/login"),
         body: ({"nama": nama, "pass": pass}));
     if (respond.statusCode == 200) {
       final data = UserLogin.fromJson(json.decode(respond.body)[0]);
