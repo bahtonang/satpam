@@ -14,8 +14,8 @@ class _LoginState extends State<Login> {
   bool isLogin = false;
   String? errorMsg = "";
   String? errorTgl = "";
-  TextEditingController? _textNama = TextEditingController();
-  TextEditingController? _textPass = TextEditingController();
+  TextEditingController _textNama = TextEditingController();
+  TextEditingController _textPass = TextEditingController();
   UserLogin? resultApi;
   String? akses;
   String? nama;
@@ -103,8 +103,16 @@ class _LoginState extends State<Login> {
               ElevatedButton.icon(
                 onPressed: () {
                   apiServices
-                      .login(_textNama.text, _textPass.text)
-                      .then((value) => null);
+                      ?.login(_textNama.text, _textPass.text)
+                      .then((value) {
+                    if (value == null) {
+                      errorTgl = "Password keliru";
+                      setState(() {});
+                    } else {
+                      resultApi = value;
+                      setState(() {});
+                    }
+                  });
                 },
                 icon: const Icon(Icons.abc),
                 label: const Text('button'),
